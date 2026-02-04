@@ -1,5 +1,6 @@
-// Copyright 2019, Vitaly Bezgachev, vitaly.bezgachev [the_at_symbol] gmail.com, Kadir Tugan, kadir.tugan [the_at_symbol] gmail.com
+// © 2026 Nokia
 // Licensed under the Apache License, Version 2.0 (the "License");
+// SPDX-License-Identifier: Apache-2.0
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -18,7 +19,7 @@ import (
 	"strings"
 )
 
-// AutoFailoverValue is a custom type that can handle both bool and string values
+// AutoFailoverValue is a custom type that can handle both bool (true/false) and string values
 // String values are expected to be one of: "true", "false", or "safe"
 type AutoFailoverValue struct {
 	StringValue string
