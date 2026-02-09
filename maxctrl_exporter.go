@@ -289,6 +289,12 @@ func (m *MaxScale) parseMaxscaleStatus(ch chan<- prometheus.Metric) error {
 	m.createMetricForPrometheus(m.maxscaleStatusMetrics, "status_threads",
 		maxscaleStatus.Data.Attributes.Parameters.Threads, ch)
 
+	m.createMetricForPrometheus(m.maxscaleStatusMetrics, "status_writeq_high_water",
+		maxscaleStatus.Data.Attributes.Parameters.WriteqHighWater, ch)
+
+	m.createMetricForPrometheus(m.maxscaleStatusMetrics, "status_writeq_low_water",
+		maxscaleStatus.Data.Attributes.Parameters.WriteqLowWater, ch)
+
 	passiveMode := 0
 	if maxscaleStatus.Data.Attributes.Parameters.Passive {
 		passiveMode = 1
@@ -316,13 +322,15 @@ func (m *MaxScale) parseMonitors(ch chan<- prometheus.Metric) error {
 		m.createMetricForPrometheus(m.monitorMetrics, "monitor_primary", primary, ch, monitor.ID, monitor.Attributes.Parameters.CooperativeMonitoringLocks)
 
 		auto_failover := 0
-		if monitor.Attributes.Parameters.AutoFailover {
+		// Use the Bool() method of AutoFailoverValue which handles specific enum values
+		// "true" and "safe" are considered true, all others are false
+		if monitor.Attributes.Parameters.AutoFailover.Bool() {
 			auto_failover = 1
 		}
 		m.createMetricForPrometheus(m.monitorMetrics, "monitor_auto_failover", auto_failover, ch, monitor.ID, monitor.Attributes.Parameters.CooperativeMonitoringLocks)
 
 		auto_rejoin := 0
-		if monitor.Attributes.Parameters.AutoFailover {
+		if monitor.Attributes.Parameters.AutoRejoin {
 			auto_rejoin = 1
 		}
 		m.createMetricForPrometheus(m.monitorMetrics, "monitor_auto_rejoin", auto_rejoin, ch, monitor.ID, monitor.Attributes.Parameters.CooperativeMonitoringLocks)

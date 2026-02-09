@@ -92,9 +92,9 @@ type Monitors struct {
 			} `json:"monitor_diagnostics"`
 			//nolint
 			Parameters struct {
-				CooperativeMonitoringLocks string `json:"cooperative_monitoring_locks"`
-				AutoFailover               bool   `json:"auto_failover"`
-				AutoRejoin                 bool   `json:"auto_rejoin"`
+				CooperativeMonitoringLocks string           `json:"cooperative_monitoring_locks"`
+				AutoFailover               AutoFailoverValue `json:"auto_failover"`
+				AutoRejoin                 bool             `json:"auto_rejoin"`
 			} `json:"parameters"`
 			//nolint
 		} `json:"attributes"`
@@ -116,6 +116,8 @@ type MaxscaleStatus struct {
 		Attributes struct {
 			Parameters struct {
 				Threads int  `json:"threads"`
+				WriteqHighWater int  `json:"writeq_high_water"`
+				WriteqLowWater int  `json:"writeq_low_water"`
 				Passive bool `json:"passive"`
 				// add other parameters if needed
 			} `json:"parameters"`
