@@ -20,7 +20,8 @@ import (
 )
 
 // AutoFailoverValue is a custom type that can handle both bool (true/false) and string values
-// String values are expected to be one of: "true", "false", or "safe"
+// String values are expected to be one of: "true", "false", or "safe" 
+// This is to support all maxscale versions: in addition to pre-25.x all 25.x new releases
 type AutoFailoverValue struct {
 	StringValue string
 	BoolValue   bool
