@@ -16,6 +16,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"strings"
 )
 
@@ -45,7 +46,7 @@ func (a *AutoFailoverValue) UnmarshalJSON(data []byte) error {
 	}
 
 	// If neither, return error
-	return json.Unmarshal(data, nil)
+	return errors.New("Cannot find AutoFailoverValue in JSON")
 }
 
 // MarshalJSON implements the json.Marshaler interface
